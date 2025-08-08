@@ -121,12 +121,8 @@ h1 {
 }
 
 @keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .hidden {
@@ -174,6 +170,7 @@ h1 {
   border-left: 4px solid var(--warning);
 }
 
+/* Skills & Jobs */
 .skills-container {
   display: flex;
   flex-wrap: wrap;
@@ -228,47 +225,59 @@ h1 {
   font-size: 13px;
 }
 
+/* Missing skills advice */
 .missing-skills {
   margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .missing-skill {
-  background: #fff3e0;
-  color: #f57c00;
-  padding: 5px 12px;
-  border-radius: 4px;
-  font-size: 13px;
-  margin-right: 6px;
-  display: inline-block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #d35400;
 }
 
-/* Warning message */
-.warning-message {
-  margin-top: 20px;
-  padding: 15px;
-  background-color: #fce4e4;
-  color: #d32f2f; /* red */
-  font-weight: 700;
-  font-size: 18px;
-  text-align: center;
-  border: 2px solid #d32f2f;
-  border-radius: 8px;
-  user-select: none;
-  box-shadow: 0 2px 8px rgba(211, 47, 47, 0.3);
+.advice-list {
+  padding-left: 15px;
 }
 
-/* Responsive */
+.advice-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.advice-item input[type="checkbox"] {
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+}
+
+.advice-item label {
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--dark);
+}
+
+.no-skills, .no-jobs {
+  color: #999;
+  font-style: italic;
+  margin: 10px 0;
+}
+
 @media (max-width: 600px) {
   .container {
     padding: 20px;
   }
-
+  
   .results-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
   }
-
+  
   .match-strength {
     text-align: left;
     width: 100%;
