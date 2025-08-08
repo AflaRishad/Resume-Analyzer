@@ -1,38 +1,42 @@
 [
   {
-    "id": "job-001",
-    "title": "Frontend Developer",
-    "company": "Acme Web",
-    "location": "Remote",
-    "url": "https://example.com/jobs/frontend",
-    "skills": ["javascript", "react", "html", "css", "git"],
-    "description": "Build UI components using React."
+    "role": "SAP CPI/PI Integration Consultant",
+    "keywords": ["sap cpi", "sap pi", "cloud integration", "ariba", "s4hana", "idoc", "soap", "odata", "sap cloud platform"],
+    "description": "Design and implement integration solutions between SAP and non-SAP systems using SAP Cloud Platform Integration (CPI) and Process Integration (PI)."
   },
   {
-    "id": "job-002",
-    "title": "Backend Developer (Node.js)",
-    "company": "DataCorp",
-    "location": "Remote",
-    "url": "https://example.com/jobs/backend",
-    "skills": ["node.js", "express", "mongodb", "rest", "git"],
-    "description": "Build REST APIs in Node.js."
+    "role": "SAP ABAP Developer",
+    "keywords": ["abap", "sap fiori", "bapi", "cds views", "sap netweaver", "odata", "sapui5"],
+    "description": "Develop custom SAP applications and enhancements using ABAP programming language."
   },
   {
-    "id": "job-003",
-    "title": "Data Analyst",
-    "company": "InsightX",
-    "location": "Bengaluru, India",
-    "url": "https://example.com/jobs/data-analyst",
-    "skills": ["python", "sql", "excel", "data analysis"],
-    "description": "Analyze datasets and build dashboards."
+    "role": "Full Stack Developer (MERN)",
+    "keywords": ["react", "node.js", "mongodb", "express", "javascript", "typescript", "rest api", "graphql"],
+    "description": "Build modern web applications using MongoDB, Express, React, and Node.js stack."
   },
   {
-    "id": "job-004",
-    "title": "ML Engineer",
-    "company": "VisionAI",
-    "location": "Remote",
-    "url": "https://example.com/jobs/ml",
-    "skills": ["python", "machine learning", "tensorflow", "pytorch", "nlp"],
-    "description": "Build and deploy ML models."
+    "role": "Python Developer",
+    "keywords": ["python", "django", "flask", "rest api", "sql", "aws", "machine learning"],
+    "description": "Develop backend services and data processing applications using Python."
+  },
+  {
+    "role": "Data Engineer",
+    "keywords": ["python", "sql", "etl", "pyspark", "hadoop", "airflow", "aws glue", "big data"],
+    "description": "Design and maintain data pipelines for large-scale data processing."
+  },
+  {
+    "role": "DevOps Engineer",
+    "keywords": ["aws", "docker", "kubernetes", "jenkins", "terraform", "ci/cd", "azure", "gcp"],
+    "description": "Implement and manage continuous integration and deployment pipelines."
+  },
+  {
+    "role": "IT Consultant (ERP)",
+    "keywords": ["sap", "oracle", "dynamics 365", "erp implementation", "business process"],
+    "description": "Advise clients on ERP system selection, implementation, and optimization."
+  },
+  {
+    "role": "Cloud Solutions Architect",
+    "keywords": ["aws", "azure", "gcp", "microservices", "serverless", "terraform", "cloud migration"],
+    "description": "Design scalable and secure cloud architectures for enterprise applications."
   }
 ]
