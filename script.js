@@ -1,7 +1,3 @@
-// PDF.js worker initialization
-pdfjsLib.GlobalWorkerOptions.workerSrc =
-  'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.min.js';
-
 // DOM Elements
 const dom = {
   resumeUpload: document.getElementById('resumeUpload'),
@@ -18,135 +14,48 @@ const dom = {
   qualityLevel: document.querySelector('.quality-level'),
 };
 
-let currentMatchedRoles = [];
 let baseMatchScore = 0;
-let currentMissingSkills = [];
-let improvementState = {}; // Track completed advice per missing skill
 
-// Event Listeners
-dom.resumeUpload.addEventListener('change', handleFileSelect);
-dom.analyzeBtn.addEventListener('click', analyzeResume);
-
-// File Selection Handler
-function handleFileSelect(e) {
+// Handle file input change
+dom.resumeUpload.addEventListener('change', (e) => {
   const file = e.target.files[0];
   if (file) {
-    // Validate file type and size
-    if (!file.type.includes('pdf')) {
+    if (file.type !== 'application/pdf') {
       showError('Please upload a PDF file');
+      dom.analyzeBtn.disabled = true;
+      dom.fileName.textContent = 'Choose PDF Resume';
       return;
     }
 
     if (file.size > 5 * 1024 * 1024) {
-      // 5MB limit
       showError('File size exceeds 5MB limit');
+      dom.analyzeBtn.disabled = true;
+      dom.fileName.textContent = 'Choose PDF Resume';
       return;
     }
 
+    hideError();
     dom.fileName.textContent = file.name;
     dom.analyzeBtn.disabled = false;
-    hideError();
   } else {
     dom.fileName.textContent = 'Choose PDF Resume';
     dom.analyzeBtn.disabled = true;
   }
+});
+
+// Show error message
+function showError(message) {
+  dom.errorMessage.textContent = message;
+  dom.error.classList.remove('hidden');
 }
 
-// PDF Text Extraction
-async function extractTextFromPDF(file) {
-  try {
-    console.log('Starting PDF extraction...');
-
-    const arrayBuffer = await file.arrayBuffer();
-    const pdf = await pdfjsLib.getDocument(arrayBuffer).promise;
-
-    if (pdf.numPages < 1) {
-      throw new Error('The PDF appears to be empty');
-    }
-
-    let text = '';
-    const maxPages = Math.min(pdf.numPages, 10); // Limit to 10 pages
-
-    for (let i = 1; i <= maxPages; i++) {
-      const page = await pdf.getPage(i);
-      const content = await page.getTextContent();
-      text += content.items.map((item) => item.str).join(' ') + ' ';
-    }
-
-    if (text.trim().length < 50) {
-      throw new Error('Could not extract sufficient text (scanned/image PDF?)');
-    }
-
-    console.log('PDF extraction successful');
-    return text;
-  } catch (err) {
-    console.error('PDF Extraction Error:', err);
-    throw new Error(`Failed to read PDF: ${err.message}`);
-  }
+// Hide error message
+function hideError() {
+  dom.error.classList.add('hidden');
+  dom.errorMessage.textContent = '';
 }
 
-// Resume Analysis
-async function analyzeResumeText(text) {
-  try {
-    console.log('Starting resume analysis...');
-
-    const response = await fetch('jobs.json');
-    if (!response.ok) throw new Error('Failed to load job data');
-
-    const jobsData = await response.json();
-    if (!Array.isArray(jobsData)) throw new Error('Invalid job data format');
-
-    const lowerText = text.toLowerCase();
-
-    // Collect all keywords once
-    const allKeywords = [...new Set(jobsData.flatMap((job) => job.keywords))];
-
-    // Find skills found in resume
-    const foundSkills = allKeywords.filter((keyword) =>
-      lowerText.includes(keyword.toLowerCase())
-    );
-
-    // Match jobs & calculate scores
-    const matchedRoles = jobsData
-      .map((job) => {
-        const matchedKeywords = job.keywords.filter((keyword) =>
-          lowerText.includes(keyword.toLowerCase())
-        );
-
-        return {
-          ...job,
-          matchScore: Math.min(
-            100,
-            Math.round((matchedKeywords.length / job.keywords.length) * 100)
-          ),
-          matchedKeywords,
-        };
-      })
-      .filter((job) => job.matchScore > 20) // Minimum 20% match to show
-      .sort((a, b) => b.matchScore - a.matchScore);
-
-    // Skills gap for top job
-    let missingKeywords = [];
-    if (matchedRoles.length > 0) {
-      const topJob = matchedRoles[0];
-      missingKeywords = topJob.keywords.filter(
-        (keyword) => !lowerText.includes(keyword.toLowerCase())
-      );
-    }
-
-    console.log('Analysis completed successfully');
-    return {
-      skills: foundSkills,
-      matchedRoles,
-      missingKeywords: missingKeywords.slice(0, 5), // Limit top 5 missing skills
-    };
-  } catch (err) {
-    console.error('Analysis Error:', err);
-    throw new Error(`Analysis failed: ${err.message}`);
-  }
-}
-
-// Main Analysis Function
+// Analyze resume by uploading to backend
 async function analyzeResume() {
   const file = dom.resumeUpload.files[0];
   if (!file) {
@@ -154,45 +63,53 @@ async function analyzeResume() {
     return;
   }
 
-  // Reset UI
   dom.analyzeBtn.disabled = true;
   dom.loading.classList.remove('hidden');
   hideError();
   dom.results.classList.add('hidden');
 
   try {
-    const text = await extractTextFromPDF(file);
-    console.log('Extracted Text Sample:', text.substring(0, 200) + '...');
+    const formData = new FormData();
+    formData.append('resume', file);
 
-    const { skills, matchedRoles, missingKeywords } = await analyzeResumeText(text);
+    const response = await fetch('/api/analyze', {
+      method: 'POST',
+      body: formData,
+    });
 
-    // Save to global for improvement tracking
-    currentMatchedRoles = matchedRoles;
-    baseMatchScore = matchedRoles[0]?.matchScore || 0;
-    currentMissingSkills = missingKeywords;
-    improvementState = {}; // reset progress
+    if (!response.ok) {
+      const errData = await response.json();
+      throw new Error(errData.error || 'Failed to analyze resume');
+    }
 
-    displayResults(skills, matchedRoles, missingKeywords);
+    const data = await response.json();
+
+    baseMatchScore = data.jobs[0]?.matchScore || 0;
+
+    displayResults(data.skills, data.jobs, data.missingKeywords, data.advice);
   } catch (err) {
     showError(err.message);
-    console.error('Full Analysis Error:', err);
+    console.error('Analysis error:', err);
   } finally {
     dom.loading.classList.add('hidden');
     dom.analyzeBtn.disabled = false;
   }
 }
 
-// Display Results
-function displayResults(skills, matchedRoles, missingKeywords) {
+dom.analyzeBtn.addEventListener('click', analyzeResume);
+
+// Display results
+function displayResults(skills, jobs, missingKeywords, advice) {
+  dom.results.classList.remove('hidden');
+
   // Skills
-  dom.skills.innerHTML =
-    skills.length > 0
-      ? skills.map((skill) => `<div class="skill-item">${skill}</div>`).join('')
-      : '<p class="no-skills">No significant skills detected</p>';
+  dom.skills.innerHTML = skills.length
+    ? skills.map((skill) => `<div class="skill-item">${skill}</div>`).join('')
+    : '<p class="no-skills">No significant skills detected</p>';
 
   // Jobs
-  if (matchedRoles.length > 0) {
-    dom.jobs.innerHTML = matchedRoles
+  if (jobs.length > 0) {
+    dom.jobs.innerHTML = jobs
       .slice(0, 3)
       .map(
         (job) => `
@@ -200,13 +117,12 @@ function displayResults(skills, matchedRoles, missingKeywords) {
         <h4>${job.role} <span class="match-score">${job.matchScore}% match</span></h4>
         <p>${job.description}</p>
         ${
-          job.matchedKeywords.length > 0
+          job.matchedKeywords && job.matchedKeywords.length > 0
             ? `<div class="matched-keywords">
-              <strong>Matched Skills:</strong>
-              ${job.matchedKeywords
-                .map((k) => `<span class="matched-keyword">${k}</span>`)
-                .join('')}
-            </div>`
+                <strong>Matched Skills:</strong> ${job.matchedKeywords
+                  .map((k) => `<span class="matched-keyword">${k}</span>`)
+                  .join('')}
+              </div>`
             : ''
         }
       </div>`
@@ -215,5 +131,31 @@ function displayResults(skills, matchedRoles, missingKeywords) {
 
     updateMatchQuality(baseMatchScore);
   } else {
-    dom.jobs.innerHTML =
-      '<
+    dom.jobs.innerHTML = '<p class="no-jobs">No suitable jobs found</p>';
+    updateMatchQuality(0);
+  }
+
+  // Improvement Suggestions
+  if (missingKeywords && missingKeywords.length > 0) {
+    let adviceHTML = missingKeywords
+      .map((skill, i) => {
+        const advices = advice || [];
+        const relevantAdvice = advices.length > 0 ? advices.map(a => `<li><a href="${a.url}" target="_blank">${a.text}</a></li>`).join('') : '<li>No advice available</li>';
+        return `
+        <div class="missing-skill">
+          <strong>${skill}</strong>
+          <ul class="advice-list">${relevantAdvice}</ul>
+        </div>`;
+      })
+      .join('');
+    dom.gapAnalysis.innerHTML = adviceHTML;
+  } else {
+    dom.gapAnalysis.innerHTML = '<p>No improvement suggestions needed!</p>';
+  }
+}
+
+// Update match quality UI
+function updateMatchQuality(score) {
+  dom.matchQuality.textContent = score >= 70 ? 'Excellent Match' : score >= 40 ? 'Good Match' : 'Poor Match';
+  dom.qualityLevel.style.width = `${score}%`;
+}
