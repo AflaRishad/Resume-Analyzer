@@ -9,7 +9,7 @@ const app = express();
 
 app.use(cors());
 app.use(fileUpload());
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Load jobs from file once at startup
 let jobsData = [];
@@ -66,7 +66,7 @@ app.post('/api/analyze', async (req, res) => {
       skills: foundSkills,
       jobs: matchedJobs,
       missingKeywords: missingKeywords.slice(0, 5),
-      advice: topJob ? topJob.advice || [] : []
+      advice: topJob ? topJob.advice || [] : [],
     });
   } catch (err) {
     console.error('Error during resume analysis:', err);
