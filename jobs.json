@@ -2,41 +2,121 @@
   {
     "role": "SAP CPI/PI Integration Consultant",
     "keywords": ["sap cpi", "sap pi", "cloud integration", "ariba", "s4hana", "idoc", "soap", "odata", "sap cloud platform"],
-    "description": "Design and implement integration solutions between SAP and non-SAP systems using SAP Cloud Platform Integration (CPI) and Process Integration (PI)."
+    "description": "Design and implement integration solutions between SAP and non-SAP systems using SAP Cloud Platform Integration (CPI) and Process Integration (PI).",
+    "advice": [
+      {
+        "text": "Watch SAP CPI Tutorial on YouTube",
+        "url": "https://www.youtube.com/watch?v=2aCpTVXTmO4"
+      },
+      {
+        "text": "Practice SAP integration scenarios on SAP Learning Hub",
+        "url": "https://learninghub.sap.com/"
+      }
+    ]
   },
   {
     "role": "SAP ABAP Developer",
     "keywords": ["abap", "sap fiori", "bapi", "cds views", "sap netweaver", "odata", "sapui5"],
-    "description": "Develop custom SAP applications and enhancements using ABAP programming language."
+    "description": "Develop custom SAP applications and enhancements using ABAP programming language.",
+    "advice": [
+      {
+        "text": "Complete ABAP Basics course on openSAP",
+        "url": "https://open.sap.com/courses/abap"
+      },
+      {
+        "text": "Practice coding challenges on SAP Community",
+        "url": "https://community.sap.com/resources/documents"
+      }
+    ]
   },
   {
     "role": "Full Stack Developer (MERN)",
     "keywords": ["react", "node.js", "mongodb", "express", "javascript", "typescript", "rest api", "graphql"],
-    "description": "Build modern web applications using MongoDB, Express, React, and Node.js stack."
+    "description": "Build modern web applications using MongoDB, Express, React, and Node.js stack.",
+    "advice": [
+      {
+        "text": "Follow React tutorials on freeCodeCamp",
+        "url": "https://www.freecodecamp.org/learn/front-end-libraries/react/"
+      },
+      {
+        "text": "Solve backend challenges on HackerRank",
+        "url": "https://www.hackerrank.com/domains/tutorials/10-days-of-javascript"
+      }
+    ]
   },
   {
     "role": "Python Developer",
     "keywords": ["python", "django", "flask", "rest api", "sql", "aws", "machine learning"],
-    "description": "Develop backend services and data processing applications using Python."
+    "description": "Develop backend services and data processing applications using Python.",
+    "advice": [
+      {
+        "text": "Complete Python course on Codecademy",
+        "url": "https://www.codecademy.com/learn/learn-python-3"
+      },
+      {
+        "text": "Practice algorithms on LeetCode (Python)",
+        "url": "https://leetcode.com/problemset/all/"
+      }
+    ]
   },
   {
     "role": "Data Engineer",
     "keywords": ["python", "sql", "etl", "pyspark", "hadoop", "airflow", "aws glue", "big data"],
-    "description": "Design and maintain data pipelines for large-scale data processing."
+    "description": "Design and maintain data pipelines for large-scale data processing.",
+    "advice": [
+      {
+        "text": "Learn PySpark basics on Databricks Academy",
+        "url": "https://academy.databricks.com/"
+      },
+      {
+        "text": "Practice SQL queries on Mode Analytics",
+        "url": "https://mode.com/sql-tutorial/"
+      }
+    ]
   },
   {
     "role": "DevOps Engineer",
     "keywords": ["aws", "docker", "kubernetes", "jenkins", "terraform", "ci/cd", "azure", "gcp"],
-    "description": "Implement and manage continuous integration and deployment pipelines."
+    "description": "Implement and manage continuous integration and deployment pipelines.",
+    "advice": [
+      {
+        "text": "Watch Docker and Kubernetes tutorial on YouTube",
+        "url": "https://www.youtube.com/watch?v=4ht22ReBjno"
+      },
+      {
+        "text": "Practice CI/CD projects on GitHub",
+        "url": "https://github.com/topics/ci-cd"
+      }
+    ]
   },
   {
     "role": "IT Consultant (ERP)",
     "keywords": ["sap", "oracle", "dynamics 365", "erp implementation", "business process"],
-    "description": "Advise clients on ERP system selection, implementation, and optimization."
+    "description": "Advise clients on ERP system selection, implementation, and optimization.",
+    "advice": [
+      {
+        "text": "Read ERP implementation case studies on Oracle",
+        "url": "https://www.oracle.com/erp/resources/"
+      },
+      {
+        "text": "Study business process fundamentals on Coursera",
+        "url": "https://www.coursera.org/learn/business-process-management"
+      }
+    ]
   },
   {
     "role": "Cloud Solutions Architect",
     "keywords": ["aws", "azure", "gcp", "microservices", "serverless", "terraform", "cloud migration"],
-    "description": "Design scalable and secure cloud architectures for enterprise applications."
+    "description": "Design scalable and secure cloud architectures for enterprise applications.",
+    "advice": [
+      {
+        "text": "Complete AWS Solutions Architect course on A Cloud Guru",
+        "url": "https://acloudguru.com/course/aws-certified-solutions-architect-associate"
+      },
+      {
+        "text": "Practice Terraform infrastructure as code on HashiCorp Learn",
+        "url": "https://learn.hashicorp.com/terraform"
+      }
+    ]
   }
 ]
