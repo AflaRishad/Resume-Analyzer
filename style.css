@@ -1,0 +1,12 @@
+body { font-family: Arial, sans-serif; background:#f4f6f8; color:#222; margin:0; padding:20px;}
+.container { max-width:900px; margin:0 auto; background:white; padding:20px; border-radius:8px; box-shadow:0 6px 24px rgba(0,0,0,0.08);}
+h1 { margin-top:0; }
+section { margin:18px 0; padding:12px; border:1px solid #eee; border-radius:6px; background:#fafafa; }
+.muted { color: #666; font-size:0.95em; }
+.chips span { display:inline-block; padding:6px 10px; margin:6px; background:#e6f7ff; border-radius:20px; font-weight:600; color:#024; }
+.job { border-bottom:1px dashed #ddd; padding:10px 0; }
+.job .title { font-weight:700; font-size:1.05em; }
+.badge { display:inline-block; padding:4px 8px; background:#ffd54f; border-radius:4px; margin-left:8px; font-size:12px; }
+.lesson { padding:10px; border:1px solid #eee; margin:8px 0; border-radius:6px; background:#fff; }
+button.small { padding:6px 10px; }
+a.apply { text-decoration:none; color:#0b63d4; font-weight:600; }

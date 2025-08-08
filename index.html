@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>SkillMap — Resume → Jobs → Learn</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>SkillMap — Resume Analyzer & Micro Learning</h1>
+
+    <section id="upload">
+      <h2>1) Upload your resume (PDF, DOCX or TXT)</h2>
+      <input type="file" id="resumeFile" accept=".pdf,.docx,.txt">
+      <button id="uploadBtn">Analyze Resume</button>
+      <p id="status" class="muted"></p>
+    </section>
+
+    <section id="skillsSection" style="display:none;">
+      <h2>Your detected skills</h2>
+      <div id="skillsList" class="chips"></div>
+    </section>
+
+    <section id="jobsSection" style="display:none;">
+      <h2>Matching Jobs</h2>
+      <div id="jobsList"></div>
+    </section>
+
+    <section id="lessonsSection" style="display:none;">
+      <h2>Micro-lessons for missing skills</h2>
+      <div id="lessonsList"></div>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

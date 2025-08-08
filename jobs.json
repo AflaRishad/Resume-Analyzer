@@ -1,0 +1,38 @@
+[
+  {
+    "id": "job-001",
+    "title": "Frontend Developer",
+    "company": "Acme Web",
+    "location": "Remote",
+    "url": "https://example.com/jobs/frontend",
+    "skills": ["javascript", "react", "html", "css", "git"],
+    "description": "Build UI components using React."
+  },
+  {
+    "id": "job-002",
+    "title": "Backend Developer (Node.js)",
+    "company": "DataCorp",
+    "location": "Remote",
+    "url": "https://example.com/jobs/backend",
+    "skills": ["node.js", "express", "mongodb", "rest", "git"],
+    "description": "Build REST APIs in Node.js."
+  },
+  {
+    "id": "job-003",
+    "title": "Data Analyst",
+    "company": "InsightX",
+    "location": "Bengaluru, India",
+    "url": "https://example.com/jobs/data-analyst",
+    "skills": ["python", "sql", "excel", "data analysis"],
+    "description": "Analyze datasets and build dashboards."
+  },
+  {
+    "id": "job-004",
+    "title": "ML Engineer",
+    "company": "VisionAI",
+    "location": "Remote",
+    "url": "https://example.com/jobs/ml",
+    "skills": ["python", "machine learning", "tensorflow", "pytorch", "nlp"],
+    "description": "Build and deploy ML models."
+  }
+]
