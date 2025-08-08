@@ -1,37 +1,71 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>SkillMap — Resume → Jobs → Learn</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume Analyzer</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
-    <h1>SkillMap — Resume Analyzer & Micro Learning</h1>
-
-    <section id="upload">
-      <h2>1) Upload your resume (PDF, DOCX or TXT)</h2>
-      <input type="file" id="resumeFile" accept=".pdf,.docx,.txt">
-      <button id="uploadBtn">Analyze Resume</button>
-      <p id="status" class="muted"></p>
-    </section>
-
-    <section id="skillsSection" style="display:none;">
-      <h2>Your detected skills</h2>
-      <div id="skillsList" class="chips"></div>
-    </section>
-
-    <section id="jobsSection" style="display:none;">
-      <h2>Matching Jobs</h2>
-      <div id="jobsList"></div>
-    </section>
-
-    <section id="lessonsSection" style="display:none;">
-      <h2>Micro-lessons for missing skills</h2>
-      <div id="lessonsList"></div>
-    </section>
+    <h1>Resume Analyzer</h1>
+    <p class="subtitle">Upload your resume to get personalized job recommendations</p>
+    
+    <div class="upload-container">
+      <label for="resumeUpload" class="upload-label">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+          <path fill="none" d="M0 0h24v24H0z"/>
+          <path d="M3 19h18v2H3v-2zm10-9v8h-2v-8H4l8-8 8 8h-7z"/>
+        </svg>
+        <span id="fileName">Choose PDF Resume</span>
+      </label>
+      <input type="file" id="resumeUpload" accept=".pdf" hidden>
+    </div>
+    
+    <button id="analyzeBtn" disabled>Analyze Resume</button>
+    
+    <div id="loading" class="status-box hidden">
+      <div class="spinner"></div>
+      <p>Processing your resume...</p>
+    </div>
+    
+    <div id="error" class="status-box error hidden">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1-7v2h2v-2h-2zm0-8v6h2V7h-2z"/>
+      </svg>
+      <p id="errorMessage"></p>
+    </div>
+    
+    <div id="results" class="hidden">
+      <div class="results-header">
+        <h2>Analysis Results</h2>
+        <div class="match-strength">
+          <span id="matchQuality">Good Match</span>
+          <div class="quality-bar">
+            <div class="quality-level" style="width: 75%"></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="results-section">
+        <h3>Your Skills</h3>
+        <div id="skills" class="skills-container"></div>
+      </div>
+      
+      <div class="results-section">
+        <h3>Recommended Jobs</h3>
+        <div id="jobs" class="jobs-container"></div>
+      </div>
+      
+      <div class="results-section improvement">
+        <h3>Improvement Suggestions</h3>
+        <div id="gapAnalysis"></div>
+      </div>
+    </div>
   </div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
