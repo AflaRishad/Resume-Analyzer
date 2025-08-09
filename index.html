@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Resume Analyzer</title>
+  <title>Resume Skill Improver</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h1>Resume Analyzer</h1>
-    <p class="subtitle">Upload your resume to get personalized job recommendations</p>
+    <h1>Resume Skill Improver</h1>
+    <p class="subtitle">Upload your resume, get advice, and improve your skills step-by-step</p>
     
     <div class="upload-container">
       <label for="resumeUpload" class="upload-label">
@@ -39,32 +39,26 @@
 
     <div id="results" class="hidden">
       <div class="results-header">
-        <h2>Analysis Results</h2>
+        <h2>Skill Improvement Advice</h2>
         <div class="match-strength">
-          <span id="matchQuality">Good Match</span>
+          <span id="matchQuality">Match %: 0%</span>
           <div class="quality-bar">
-            <div class="quality-level" style="width: 0%"></div>
+            <div class="quality-level" style="width: 0%;"></div>
           </div>
         </div>
       </div>
 
-      <div class="results-section">
-        <h3>Your Skills</h3>
-        <div id="skills" class="skills-container"></div>
-      </div>
-
-      <div class="results-section">
-        <h3>Recommended Jobs</h3>
-        <div id="jobs" class="jobs-container"></div>
-      </div>
-
-      <div class="results-section improvement">
-        <h3>Improvement Suggestions</h3>
-        <div id="gapAnalysis"></div>
-      </div>
+      <!-- Top jobs list injected here -->
+      <!-- Advice checklist for top job -->
+      <div id="adviceList" class="advice-list"></div>
     </div>
   </div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+  <script>
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.min.js';
+  </script>
   <script src="script.js"></script>
 </body>
 </html>
