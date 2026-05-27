@@ -1,10 +1,8 @@
 # Resume Skill Improver 🎯
 
 ## Basic Details  
-### Team Name: Nova Squad  
-### Team Members  
-- Team Lead: Afla Rishad - College of Engineering and Management Punnapra  
-- Member 2: Anagha Robert - College of Engineering and Management Punnapra  
+### Team Name: Nova Squad    
+-  Afla Rishad - College of Engineering and Management Punnapra  
 
 ### Project Description  
 Resume Skill Improver is a web-based tool that scans a user’s resume PDF to detect their existing skills and suggests personalized advice to improve skills relevant to top job roles. It helps users understand which jobs they are best suited for and guides them step-by-step to enhance their profile.
